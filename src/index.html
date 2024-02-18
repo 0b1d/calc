@@ -1,0 +1,126 @@
+<html lang="en">
+    <head>
+        <title>0b1d Calc</title>
+
+
+        <style>
+            body * {
+                font-family: monospace;
+                font-size:   16px;
+                gap:         16px;
+            }
+
+            body {
+                display:        flex;
+                flex-direction: column;
+                background:     #161517;
+                max-height:     100vh;
+                overflow:       hidden;
+            }
+
+            #display {
+                min-height:    48px;
+                width:         100%;
+                background:    #808080;
+                margin-bottom: 16px;
+                font-size:     48px;
+                text-align:    right;
+            }
+
+            #keypad {
+                display:       grid;
+                background:    #2C2A2E;
+                grid-template: repeat(4, 1fr) / repeat(4, 1fr);
+
+            }
+
+            button {
+                aspect-ratio: 1;
+                font-size:    96px;
+            }
+
+            .double-row {
+                grid-row:     span 2;
+                aspect-ratio: auto;
+            }
+
+            .double-column {
+                grid-column:  span 2;
+                aspect-ratio: auto;
+            }
+        </style>
+    </head>
+
+    <script src="./script.js" type="module"></script>
+
+    <script type="module">
+
+        const $display = document.querySelector('#display');
+
+        document.addEventListener('keyup', ev => {
+            if (ev?.isComposing || 229 === ev?.keyCode) {
+                return;
+            }
+
+            const key = ev?.key;
+
+            if (/\d/u.test(key)) {
+                digit$(key);
+            }
+
+            if (key === 'Backspace' || key === 'Delete') {
+                clear$();
+            }
+
+        });
+
+        const digit$ = digit => void ($display.value = $display.value + digit);
+        const clear$ = () => void ($display.value = '');
+
+        for (const $digit of [...document.querySelectorAll('button')]) {
+            $digit.addEventListener('click', ev => {
+                const dataset = ev?.target?.dataset;
+
+                const digit = dataset?.digit ?? '';
+                const op = dataset?.op ?? '';
+
+                if (digit) {
+                    digit$(digit);
+                }
+
+                if (op === 'delete') {
+                    clear$();
+                }
+
+            });
+        }
+
+    </script>
+
+    <body>
+
+        <label for="display"><input disabled id="display"/></label>
+
+        <section id="keypad">
+            <button data-op="delete" title="delete">&#x232B</button>
+            <button data-op="divide" title="divide">&#x2215</button>
+            <button data-op="multiply" title="multiply">&#x2217</button>
+            <button data-op="minus">-</button>
+            <button data-digit="7">7</button>
+            <button data-digit="8">8</button>
+            <button data-digit="9">9</button>
+            <button class="double-row" data-op="add" title="add">+</button>
+            <button data-digit="4">4</button>
+            <button data-digit="5">5</button>
+            <button data-digit="6">6</button>
+            <button data-digit="1">1</button>
+            <button data-digit="2">2</button>
+            <button data-digit="3">3</button>
+            <button class="double-row" data-op="enter" title="ENTER">&#x23CE</button>
+            <button class="double-column" data-digit="0">0</button>
+            <button data-op="point" title="dot">.</button>
+        </section>
+
+    </body>
+</html>
+
