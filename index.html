@@ -13,9 +13,14 @@
             body {
                 display:        flex;
                 flex-direction: column;
+                align-items:    center;
                 background:     #161517;
                 max-height:     100vh;
                 overflow:       hidden;
+            }
+
+            #calc {
+                max-width: 600px;
             }
 
             #display {
@@ -106,28 +111,31 @@
 
     <body>
 
-        <label for="display"><input disabled id="display"/></label>
+        <main id="calc">
 
-        <section id="keypad">
-            <button data-op="delete" title="delete">&#x232B</button>
-            <button data-op="divide" title="divide">&#x2215</button>
-            <button data-op="multiply" title="multiply">&#x2217</button>
-            <button data-op="minus">-</button>
-            <button data-digit="7">7</button>
-            <button data-digit="8">8</button>
-            <button data-digit="9">9</button>
-            <button class="double-row" data-op="add" title="add">+</button>
-            <button data-digit="4">4</button>
-            <button data-digit="5">5</button>
-            <button data-digit="6">6</button>
-            <button data-digit="1">1</button>
-            <button data-digit="2">2</button>
-            <button data-digit="3">3</button>
-            <button class="double-row" data-op="enter" title="ENTER">&#x23CE</button>
-            <button class="double-column" data-digit="0">0</button>
-            <button data-op="point" title="dot">.</button>
-        </section>
+            <label for="display"><input disabled id="display"/></label>
 
+            <section id="keypad">
+                <button data-op="delete" title="delete">&#x232B</button>
+                <button data-op="divide" title="divide">&#x2215</button>
+                <button data-op="multiply" title="multiply">&#x2217</button>
+                <button data-op="minus">-</button>
+                <button data-digit="7">7</button>
+                <button data-digit="8">8</button>
+                <button data-digit="9">9</button>
+                <button class="double-row" data-op="add" title="add">+</button>
+                <button data-digit="4">4</button>
+                <button data-digit="5">5</button>
+                <button data-digit="6">6</button>
+                <button data-digit="1">1</button>
+                <button data-digit="2">2</button>
+                <button data-digit="3">3</button>
+                <button class="double-row" data-op="enter" title="ENTER">&#x23CE</button>
+                <button class="double-column" data-digit="0">0</button>
+                <button data-op="point" title="dot">.</button>
+            </section>
+
+        </main>
     </body>
 </html>
 
