@@ -4,7 +4,7 @@ import {describe, it} from 'node:test';
 import {Box} from './high-level.util.mjs';
 
 
-describe('Functor', () => {
+describe('Box', () => {
 
     describe('has static `_`', () => {
         it('which is a Symbol', () => void strictEqual(typeof Box._, 'symbol'));
