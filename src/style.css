@@ -1,0 +1,52 @@
+body * {
+    font-family: monospace;
+    font-size:   16px;
+    gap:         16px;
+}
+
+body {
+    display:         flex;
+    justify-content: center;
+    align-items:     center;
+    background:      #161517;
+    max-height:      100vh;
+    overflow:        hidden;
+}
+
+#calc {
+    max-width:      600px;
+    display:        flex;
+    flex-direction: column;
+    align-items:    stretch;
+}
+
+#display {
+    min-height:    48px;
+    width:         100%;
+    background:    #808080;
+    margin-bottom: 16px;
+    font-size:     48px;
+    text-align:    right;
+}
+
+#keypad {
+    display:       grid;
+    background:    #2C2A2E;
+    grid-template: repeat(4, 1fr) / repeat(4, 1fr);
+    place-items:   stretch;
+}
+
+button {
+    aspect-ratio: 1;
+    font-size:    5vmin;
+}
+
+.double-row {
+    grid-row:     span 2;
+    aspect-ratio: auto;
+}
+
+.double-column {
+    grid-column:  span 2;
+    aspect-ratio: auto;
+}
