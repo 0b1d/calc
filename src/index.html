@@ -31,12 +31,12 @@
                 display:       grid;
                 background:    #2C2A2E;
                 grid-template: repeat(4, 1fr) / repeat(4, 1fr);
-
+                place-items:   stretch;
             }
 
             button {
                 aspect-ratio: 1;
-                font-size:    96px;
+                font-size:    10vmin;
             }
 
             .double-row {
@@ -51,49 +51,56 @@
         </style>
     </head>
 
-    <script src="./script.js" type="module"></script>
 
     <script type="module">
 
-        const $display = document.querySelector('#display');
+        import {El} from './high-level.util.mjs';
+        import {any2str, s2el$, tie} from './low-level.util.mjs';
 
-        document.addEventListener('keyup', ev => {
+
+        const display = El.of(s2el$('#display')).set({k: 'value', v: 0});
+
+
+        const onKeyUp = (el, ev) => {
             if (ev?.isComposing || 229 === ev?.keyCode) {
                 return;
             }
 
-            const key = ev?.key;
+            const v = any2str(ev?.key);
 
-            if (/\d/u.test(key)) {
-                digit$(key);
+            if (/\d/u.test(v)) {
+                el.append({k: 'value', v});
             }
 
-            if (key === 'Backspace' || key === 'Delete') {
-                clear$();
+            if (v === 'Backspace' || v === 'Delete') {
+                el.set({k: 'value', v: 0});
             }
 
-        });
+        };
 
-        const digit$ = digit => void ($display.value = $display.value + digit);
-        const clear$ = () => void ($display.value = '');
+        const onClick = (el, ev) => {
 
-        for (const $digit of [...document.querySelectorAll('button')]) {
-            $digit.addEventListener('click', ev => {
-                const dataset = ev?.target?.dataset;
+            const digit = any2str(ev?.target?.dataset?.digit);
+            const op = any2str(ev?.target?.dataset?.op);
 
-                const digit = dataset?.digit ?? '';
-                const op = dataset?.op ?? '';
+            el.append({k: 'value', v: digit});
 
-                if (digit) {
-                    digit$(digit);
-                }
+            if (op === 'delete') {
+                el.set({k: 'value', v: 0});
+            }
 
-                if (op === 'delete') {
-                    clear$();
-                }
+        };
 
-            });
-        }
+        const onDisplayKeyUp = tie(onKeyUp, display);
+        const onButtonClick = tie(onClick, display);
+
+        console.log(onDisplayKeyUp?.name, onButtonClick?.name);
+
+        El
+            .of(s2el$('body'))
+            .on({k: 'keyup', v: onDisplayKeyUp})
+            .on({k: 'click', v: onButtonClick});
+
 
     </script>
 
